@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
+import PokeDetail from './components/PokeDetail/PokeDetail'
 import axios from "axios";
 
 const App = () => {
   const [pokemon, DefinirPokemon] = useState("pikachu");
   const [pokemonDados, DefinirPokemonDados] = useState([]);
-  const [pokemonTipo, DefinirPokemonTipo] = useState("");
+  // const [pokemonTipo, DefinirPokemonTipo] = useState("");
 
   const handleChange = (e) => {
     DefinirPokemon(e.target.value.toLowerCase());
@@ -20,7 +21,7 @@ const App = () => {
       const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
       const res = await axios.get(url);
       toArray.push(res.data);
-      DefinirPokemonTipo(res.data.types[0].type.name);
+      // DefinirPokemonTipo(res.data.types[0].type.name);
       DefinirPokemonDados(toArray);
     } catch (e) {
       console.log(e);
@@ -29,7 +30,8 @@ const App = () => {
   console.log(pokemonDados);
 
   return (
-    <div className="App">
+    <div className="App" >
+
       <form onSubmit={handleSubmit}>
         <label>
           <input
@@ -40,46 +42,9 @@ const App = () => {
           />
         </label>
       </form>
-      {/* <ul>{pokemonDados}</ul> */}
-      {/* <p>{[pokemonDados]}</p> */}
       {pokemonDados.map((data) => {
         return (
-          <div className="container">
-
-            <img src={data.sprites["front_default"]} />
-
-            <div className="divMesa">
-              <div className="divMesaBody">
-
-                <div className="divMesaRow">
-                  <div className="divMesaCell">Tipo</div>
-                  <div className="divMesaCell">{pokemonTipo}</div>
-                </div>
-
-                <div className="divMesaRow">
-                  <div className="divMesaCell">Altura</div>
-                  <div className="divMesaCell">
-                    {" "}
-                    {Math.round(data.height * 3.9)}"
-                  </div>
-                </div>
-
-                <div className="divMesaRow">
-                  <div className="divMesaCell">Peso</div>
-                  <div className="divMesaCell">
-                    {" "}
-                    {Math.round(data.weight / 4.3)} lbs
-                  </div>
-                </div>
-
-                <div className="divMesaRow">
-                  <div className="divMesaCell">N/ de batalhas</div>
-                  <div className="divMesaCell">{data.game_indices.length}</div>
-                </div>
-
-              </div>
-            </div>
-          </div>
+          <PokeDetail data={data} />
         );
       })}
     </div>
