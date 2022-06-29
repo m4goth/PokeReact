@@ -31,7 +31,7 @@ const App = () => {
 
   return (
     <div className="App" >
-
+      <img alt="" src="https://logodownload.org/wp-content/uploads/2017/08/pokemon-logo-0.png" />
       <form onSubmit={handleSubmit}>
         <label>
           <input
