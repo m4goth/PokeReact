@@ -1,73 +1,31 @@
 import React, { useState } from "react";
 import "./App.css";
-import PokeDetail from './components/PokeDetail/PokeDetail'
-import axios from "axios";
+
+import Button from '@mui/material/Button'
+import PageBuscaPokemon from "./pages/PageBuscaPokemon/PageBuscaPokemon"
+import PageListaPokemon from "./pages/PageListaPokemon/PageListaPokemon"
 
 const App = () => {
-  const [pokemon, DefinirPokemon] = useState("pikachu");
-  const [pokemonDados, DefinirPokemonDados] = useState([]);
-  // const [pokemonTipo, DefinirPokemonTipo] = useState("");
+  const [page, setPage] = useState(1);
+  let pageRender;
+  if (page === 1) {
+    pageRender = <PageListaPokemon />
 
-  const handleChange = (e) => {
-    DefinirPokemon(e.target.value.toLowerCase());
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    PeguePokemon();
-  };
-  const PeguePokemon = async () => {
-    const toArray = [];
-    try {
-      const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-      const res = await axios.get(url);
-      toArray.push(res.data);
-      // DefinirPokemonTipo(res.data.types[0].type.name);
-      DefinirPokemonDados(toArray);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  console.log(pokemonDados);
+  } else if (page === 2) {
+    pageRender =
+      <PageBuscaPokemon />
+
+  }
 
   return (
     <div className="App" >
-      <img alt="" src="https://logodownload.org/wp-content/uploads/2017/08/pokemon-logo-0.png" />
-      <form onSubmit={handleSubmit}>
-        <label>
-          <input
-            className="inputche"
-            type="text"
-            onChange={handleChange}
-            placeholder="Nome do pokemon"
-          />
-        </label>
-      </form>
-      {pokemonDados.map((data) => {
-        return (
-          <PokeDetail data={data} />
-        );
-      })}
+      {/* <img alt="" src="https://logodownload.org/wp-content/uploads/2017/08/pokemon-logo-0.png" /> */}
+      <br></br>
+      <Button variant="outlined" onClick={() => setPage(1)}>Lista de Pokemons</Button>
+      <Button variant="outlined" onClick={() => setPage(2)}>Busca de Pokemons</Button>
+      {pageRender}
     </div>
   );
 };
 
 export default App;
-// const toArray = [];
-// try {
-//   const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-//   const pokeDesc = `https://pokeapi.co/api/v2/ability/${pokemon}`;
-
-//   const resPokemon = await axios.get(url);
-//   const resPokemonEtc = await axios.get(pokeDesc);
-
-//   axios.all([resPokemon, resPokemonEtc]).then(
-//     axios.spread((...allData) => {
-//       console.log(allData);
-//     })
-//   );
-//   // console.log(res);
-//   toArray.push(res.data);
-//   DefinirPokemonDados(toArray);
-// } catch (e) {
-//   console.log(e);
-// }
