@@ -39,7 +39,17 @@ export default function PageBuscaPokemon() {
         </label>
       </form>
       {pokemonDados.map((data) => {
-        return <PokeDetail data={data} />;
+        return (
+          <PokeDetail
+            data={{
+              imagem: data.sprites["front_default"],
+              nome: data.name,
+              tipo: data.types[0].type.name,
+              peso: data.weight,
+              altura: data.height,
+            }}
+          />
+        );
       })}
     </div>
   );

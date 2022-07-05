@@ -18,17 +18,15 @@ import Paper from "@mui/material/Paper";
 export default class PokeDetail extends React.Component {
   render() {
     let data = this.props.data;
+
+    console.log(data);
     return (
       <div className="container">
         <Card sx={{ maxWidth: 345 }}>
-          <CardMedia
-            component="img"
-            height="140"
-            image={data.sprites["front_default"]}
-          />
+          <CardMedia component="img" height="140" image={data.imagem} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {data.name}
+              {data.nome}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               <TableContainer component={Paper}>
@@ -38,19 +36,19 @@ export default class PokeDetail extends React.Component {
                       <TableCell component="th" scope="row">
                         Tipo
                       </TableCell>
-                      <TableCell>{data.types[0].type.name}</TableCell>
+                      <TableCell>{data.tipo}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell component="th" scope="row">
                         Peso
                       </TableCell>
-                      <TableCell>{Math.round(data.weight / 4.3)}</TableCell>
+                      <TableCell>{Math.round(data.peso / 4.3)}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell component="th" scope="row">
                         Altura
                       </TableCell>
-                      <TableCell>{Math.round(data.height * 3.9)}</TableCell>
+                      <TableCell>{Math.round(data.altura * 3.9)}</TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
