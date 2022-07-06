@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import PokeDetail from "../../components/PokeDetail/PokeDetail";
-import axios from "axios";
+import PokeAPI from "../../utils/PokeApi";
+
 export default function PageBuscaPokemon() {
   const [pokemon, DefinirPokemon] = useState("pikachu");
 
-  const [pokemonDados, DefinirPokemonDados] = useState([]);
+  const [pokemonDados, DefinirPokemonDados] = useState({});
   // const [pokemonTipo, DefinirPokemonTipo] = useState("");
 
   const handleChange = (e) => {
@@ -15,13 +16,11 @@ export default function PageBuscaPokemon() {
     PeguePokemon();
   };
   const PeguePokemon = async () => {
-    const toArray = [];
     try {
-      const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-      const res = await axios.get(url);
-      toArray.push(res.data);
-      // DefinirPokemonTipo(res.data.types[0].type.name);
-      DefinirPokemonDados(toArray);
+      let pokeApi = new PokeAPI();
+      let response = await pokeApi.buscaPokemon(pokemon);
+      console.log(response);
+      DefinirPokemonDados(response.data);
     } catch (e) {
       console.log(e);
     }
@@ -38,19 +37,17 @@ export default function PageBuscaPokemon() {
           />
         </label>
       </form>
-      {pokemonDados.map((data) => {
-        return (
-          <PokeDetail
-            data={{
-              imagem: data.sprites["front_default"],
-              nome: data.name,
-              tipo: data.types[0].type.name,
-              peso: data.weight,
-              altura: data.height,
-            }}
-          />
-        );
-      })}
+      {pokemonDados.name && (
+        <PokeDetail
+          data={{
+            imagem: pokemonDados.sprites["front_default"],
+            nome: pokemonDados.name,
+            tipo: pokemonDados.types[0].type.name,
+            peso: pokemonDados.weight,
+            altura: pokemonDados.height,
+          }}
+        />
+      )}
     </div>
   );
 }
