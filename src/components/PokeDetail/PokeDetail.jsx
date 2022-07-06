@@ -16,9 +16,18 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 export default class PokeDetail extends React.Component {
+  // refatorar o pokedetail
+
+  componentDidMount() {
+    // testo pra ver se ta vindo props.data.url
+    // se tiver url, -> pokeApi.buscaPokemon(props.name)
+    //joga dentro do state
+  }
+
+
   render() {
     let data = this.props.data;
-
+    
     console.log(data);
     return (
       <div className="container">

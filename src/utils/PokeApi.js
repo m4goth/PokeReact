@@ -9,7 +9,7 @@ class PokeAPI {
     listaPokemon() {
         //acessa api
         //retorna lista
-        // this.api
+        return this.api.get("/pokemon")
     }
 
     buscaPokemon(nomeDoPokemon) {
