@@ -6,10 +6,10 @@ class PokeAPI {
         this.api = axios.create({ baseURL: 'https://pokeapi.co/api/v2/', })
     }
 
-    listaPokemon() {
+    listaPokemon(offset=0) {
         //acessa api
         //retorna lista
-        return this.api.get("/pokemon")
+        return this.api.get(`/pokemon?offset=${offset}`)
     }
 
     buscaPokemon(nomeDoPokemon) {
