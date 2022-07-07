@@ -20,32 +20,17 @@ export default function PageListaPokemon() {
   }, []);
 
   let numeroDePaginas = Math.ceil(1154 / 20);
-  // let botoes = [];
-  // for (let i = 0; i < numeroDePaginas; i++) {
-  //   botoes.push(
-  //     <Button
-  //       variant="contained"
-  //       onClick={() => {
-  //         fetchLista(i * 20);
-  //       }}
-  //     >
-  //       Pagina {i + 1}
-  //     </Button>
-  //   );
-  // }
-
+  
   const handleChange = (event, value) => {
-    //  setPage(value);
     console.log(value);
     //calculamos o offset
     //que vai de 0 e depois vai de 20 eem 20
-    
     fetchLista((value - 1) * 20);
   };
 
   return (
     <div id="lista-de-pokemons">
-      {/* {botoes} */}
+    
       <Pagination count={numeroDePaginas} onChange={handleChange} />
       <Grid container spacing={2}>
         {listaPokemon.map((poke) => (
